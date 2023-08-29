@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 function App(): JSX.Element {
   return (
     <View>
-      <Text>Hello it's me</Text>
+      <Text>oooooo</Text>
     </View>
   );
 }
