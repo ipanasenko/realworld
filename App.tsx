@@ -1,31 +1,20 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, Text, TextField, View } from 'react-native-ui-lib';
 
 function App(): JSX.Element {
   return (
-    <View>
-      <Text>oooooo</Text>
+    <View flex paddingH-25 paddingT-120>
+      <Text blue50 text20>
+        Welcome
+      </Text>
+      <TextField text50 placeholder="username" grey10 />
+      <TextField text50 placeholder="password" secureTextEntry grey10 />
+      <View marginT-100 center>
+        <Button text70 white background-orange30 label="Login" />
+        <Button link text70 orange30 label="Sign Up" marginT-20 />
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
