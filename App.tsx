@@ -1,20 +1,44 @@
-import React from 'react';
-import { Button, Text, TextField, View } from 'react-native-ui-lib';
+import React, { FC } from 'react';
+import { Text, View, Button } from 'react-native-ui-lib';
 
-function App(): JSX.Element {
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+const Stack = createNativeStackNavigator();
+
+const ViewAndText: FC<{ text: string; destination: string }> = ({
+  text,
+  destination,
+}) => {
+  const navigation = useNavigation();
+
   return (
-    <View flex paddingH-25 paddingT-120>
+    <View>
       <Text blue50 text20>
-        Welcome
+        {text}
+        {/* @ts-ignore */}
+        <Button onPress={() => navigation.navigate(destination)}>
+          <Text>go to {destination}</Text>
+        </Button>
       </Text>
-      <TextField text50 placeholder="username" grey10 />
-      <TextField text50 placeholder="password" secureTextEntry grey10 />
-      <View marginT-100 center>
-        <Button text70 white background-orange30 label="Login" />
-        <Button link text70 orange30 label="Sign Up" marginT-20 />
-      </View>
     </View>
   );
-}
+};
+
+const Home = () => {
+  return <ViewAndText text={'Home'} destination={'Settings'} />;
+};
+const Settings = () => {
+  return <ViewAndText text={'Settings'} destination={'Home'} />;
+};
+
+const App: FC = () => (
+  <NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Settings" component={Settings} />
+    </Stack.Navigator>
+  </NavigationContainer>
+);
 
 export default App;
