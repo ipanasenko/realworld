@@ -15,4 +15,13 @@ export interface Article {
   updatedAt: string;
   favorited: boolean;
   favoritesCount: number;
+  author: Profile;
+}
+
+export interface Comment {
+  id: number;
+  createdAt: string;
+  updatedAt: string;
+  body: string;
+  author: Profile;
 }
