@@ -4,22 +4,26 @@ import { Article, Comment } from '../types/realworld';
 
 const instance = axios.create({ baseURL: 'https://api.realworld.io/api' });
 
-export const useArticles = (params: {
+export interface UseArticlesParams {
   tag?: string;
   author?: string;
   favorited?: boolean;
-}) => {
+}
+
+export const useArticles = (params: UseArticlesParams) => {
   return useInfiniteQuery<{ articles: Article[]; articlesCount: number }>({
-    queryKey: ['articles'],
+    queryKey: ['articles', params],
     queryFn: ({ pageParam }) => {
       return instance
         .get('/articles', { params: { ...params, ...pageParam, limit: 30 } })
         .then((res) => res.data);
     },
     getNextPageParam: ({ articlesCount }, allPages) => {
-      const fetchedArticlesCount = allPages
-        .map((data) => data.articles.length)
-        .reduce((a, b) => a + b);
+      const fetchedArticlesCount = allPages.reduce(
+        (acc, page) => acc + page.articles.length,
+        0,
+      );
+
       if (fetchedArticlesCount < articlesCount) {
         return { offset: fetchedArticlesCount };
       }
